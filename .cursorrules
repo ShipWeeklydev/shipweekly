@@ -1,0 +1,115 @@
+# ShipWeekly.dev — Cursor Rules
+
+## Who You Are
+You are a senior full stack developer building ShipWeekly.dev — a weekly product launch platform for indie hackers, SaaS founders, and open source makers. You write clean, production-ready TypeScript. You never take shortcuts that will cause problems later.
+
+## Tech Stack — Exact Versions
+- Framework: Next.js 15 with App Router and TypeScript
+- Styling: Tailwind CSS + shadcn/ui (New York style, zinc base)
+- Auth: Clerk (@clerk/nextjs)
+- Database: Neon Postgres via @neondatabase/serverless
+- ORM: Drizzle ORM with drizzle-kit
+- Validation: Zod
+- Storage: Cloudinary
+- Email: Resend
+- IDs: nanoid
+- Utils: clsx + tailwind-merge
+
+## Folder Structure Rules
+- All source code lives in /app, /components, /lib
+- API routes live in app/api/
+- Server actions live in lib/actions/
+- Database queries live in lib/db/queries.ts
+- Database schema lives in lib/db/schema.ts
+- Database client lives in lib/db/index.ts
+- Auth config lives in lib/auth.ts
+- Reusable components live in /components
+- shadcn primitives live in components/ui/
+- Discussion/forum logic lives in lib/actions/ and lib/db/queries.ts
+- Newsletter logic lives in lib/actions/ and api/newsletter/
+- Collection logic lives in lib/actions/ and api/collections/
+- Never create folders outside this structure without asking
+
+## TypeScript Rules
+- Never use `any` type. Ever.
+- Always define explicit return types on functions
+- Always define prop types as interfaces above the component
+- Use type for unions, interface for object shapes
+- Always handle null and undefined explicitly
+
+## Next.js Rules
+- Default to server components. Only use client components when you need useState, useEffect, event handlers, or browser APIs
+- Mark client components with "use client" at the top
+- Use server actions for form submissions — never API routes for forms
+- Use API routes only for external webhooks and third party callbacks
+- Use generateMetadata for SEO on every public page
+- Use Next.js Image component for all images. Never use raw img tags
+- Use Next.js Link component for all internal navigation. Never use raw a tags for internal links
+
+## Drizzle ORM Rules
+- Always import tables and relations from lib/db/schema.ts
+- Always use the db client from lib/db/index.ts
+- Never write raw SQL unless Drizzle cannot express the query
+- Always handle database errors with try catch
+- Always run writes (insert, update, delete) through transactions when multiple tables are affected
+- Never expose database errors directly to the client
+
+## API Route Rules
+- Always validate request body with Zod before touching the database
+- Always check authentication before any protected operation
+- Return consistent response shapes — always { success: true, data: ... } or { success: false, error: "..." }
+- Use proper HTTP status codes — 200, 201, 400, 401, 403, 404, 429, 500
+- Never return stack traces or internal error messages to the client
+
+## Auth Rules
+- Get user ID using auth() from @clerk/nextjs/server in server components and API routes
+- Get full user using currentUser() from @clerk/nextjs/server
+- Never trust client-sent user IDs. Always get user ID from auth()
+- Check auth() exists before any protected database operation
+- Map Clerk userId to your users table via clerk_user_id column
+
+## Component Rules
+- One component per file
+- File name matches component name in kebab-case
+- Always use shadcn components before building custom ones
+- Use cn() utility from lib/utils.ts for conditional classNames
+- Never use inline styles
+- All components must be responsive — mobile first
+- Screenshot galleries use the screenshot-gallery.tsx component
+- Collection cards use the collection-card.tsx component
+- Discussion cards use the discussion-card.tsx component
+- Newsletter forms use the newsletter-form.tsx component
+- Product badges use the badge-display.tsx component
+
+## Validation Rules
+- Every form input is validated with Zod on the server
+- Define Zod schemas in the same file as the server action that uses them
+- Return field-level errors back to the form, not just generic messages
+
+## Error Handling Rules
+- Every async function has try catch
+- Log errors with console.error on the server
+- Show user-friendly error messages on the client — never raw error messages
+- Use loading states on all async UI interactions
+
+## What To Never Do
+- Never install a new package without asking first
+- Never use `--force` or `--legacy-peer-deps` when installing packages (resolve version conflicts properly)
+- Never modify lib/db/schema.ts without being explicitly asked
+- Never run database migrations automatically
+- Never commit .env.local or any secrets
+- Never use localStorage — use server sessions via Clerk
+- Never skip Zod validation
+- Never use alert() or confirm() — use shadcn Dialog or Toast
+- Never write CSS outside of Tailwind classes
+- Never create a new file structure that doesn't match the folder rules above
+- Never modify discussion/collection/newsletter tables without migration planning
+- Never handle OAuth flows manually — Clerk manages this entirely
+- Never process payments without verifying Dodo webhook signatures
+
+## Security & Dependency Rules
+- Package Installs: Always check package weekly downloads and last publish date before installing. Avoid abandoned packages.
+- Peer Dependencies: If a peer dependency conflict occurs, DO NOT force install. Find compatible versions of the libraries. Force installing breaks production builds.
+- XSS Prevention: Never use `dangerouslySetInnerHTML` unless explicitly processing sanitized markdown from a trusted library.
+- SQL Injection: Never use raw SQL template literals without Drizzle's `sql` helper. Always rely on Drizzle's parameterized queries.
+- CSRF Protection: Next.js Server Actions automatically protect against CSRF, so always use them for mutations instead of API routes.
