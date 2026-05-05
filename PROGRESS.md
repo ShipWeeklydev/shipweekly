@@ -26,7 +26,7 @@ Completed: —
 - [x] Clerk auth installed and configured
 - [x] .env.local created with all variables
 - [x] .cursorrules and AGENT.md finalized
-- [ ] First commit pushed to GitHub
+- [x] First commit pushed to GitHub
 
 ### Sprint 1 — Auth & Builder Profiles
 - [x] Login page with Clerk (GitHub + Google)
@@ -191,6 +191,7 @@ Completed: —
 |---|---|---|---|
 | 2026-05-04 | Session 1 | Next.js 16 init, shadcn/ui setup, Saffron theme, Clerk + Drizzle + Neon configured, users table pushed to DB, middleware.ts created, layout wrapped in ClerkProvider, ERRORS.md + PROGRESS.md updated | ~3 hrs |
 | 2026-05-04 | Session 2 | Sprint 1 completed. Implemented shadcn split-screen auth forms, Clerk integration, Zod onboarding flow, Builder Profiles UI, and Settings page logic. Strict logic/UI separation maintained. | ~1 hr |
+| 2026-05-05 | Session 3 | Pushed to GitHub and deployed to Vercel (Sprint 0 fully checked off). Reorganized UI components into domain folders (auth/ and profile/). Added Back navigation buttons to deep pages. Created .env.example. | ~1 hr |
 
 ---
 

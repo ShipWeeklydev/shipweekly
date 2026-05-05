@@ -115,6 +115,14 @@
 - Rationale: Native Next.js support, auto-deploy from GitHub, edge network, cron jobs, image optimization, analytics — all built in.
 - Consequences: Vendor lock-in to Vercel. Free tier has limits on serverless function execution time.
 
+### DEC-009: Group feature-specific UI components by domain
+- Date: 2026-05-05
+- Status: Accepted
+- Context: The `components/` folder was getting cluttered with feature-specific forms (like `settings-form.tsx`) alongside generic UI elements (like shadcn buttons).
+- Decision: Group feature components into subfolders (e.g., `components/auth/`, `components/profile/`) while keeping shadcn primitives in `components/ui/`.
+- Rationale: Better discoverability. Prevents the root components directory from becoming a massive dumping ground as the app scales.
+- Consequences: Import paths for these components must include the domain folder (e.g., `@/components/auth/auth-layout`).
+
 ---
 
 ## Pending Decisions
