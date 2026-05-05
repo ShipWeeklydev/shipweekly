@@ -123,6 +123,22 @@
 - Rationale: Better discoverability. Prevents the root components directory from becoming a massive dumping ground as the app scales.
 - Consequences: Import paths for these components must include the domain folder (e.g., `@/components/auth/auth-layout`).
 
+### DEC-010: Three-column responsive layout architecture
+- Date: 2026-05-05
+- Status: Accepted
+- Context: Need a layout that supports a persistent navigation sidebar, a central content feed, and contextual widgets — all responsive across desktop, tablet, and mobile.
+- Decision: Three-column layout (Left Sidebar 240px + Center Feed flex-1 + Right Sidebar 320px). Desktop shows all three; tablet hides left sidebar behind hamburger; mobile shows only center feed.
+- Rationale: This pattern is proven in product discovery platforms. The left sidebar provides persistent navigation, the center feed is the primary content area, and the right sidebar surfaces contextual data (last week's best, trending stacks, top builders, newsletter CTA).
+- Consequences: Requires an `AppShell` layout component. All pages must render inside this shell. See `UI_SKETCH.md` for the full layout specification.
+
+### DEC-011: Centralize UI copy and configuration in `data/` directory
+- Date: 2026-05-05
+- Status: Accepted
+- Context: Hardcoded text (like hero headlines, form labels, empty states) inside React components makes it difficult for non-technical team members or marketers to edit copy without diving into JSX logic.
+- Decision: Create a `data/` directory at the root to store all UI strings, configurations, and placeholder data as exported TypeScript constants.
+- Rationale: Separating content from presentation allows for rapid copy iteration and easier localization in the future.
+- Consequences: All new components must import their static text from the `data/` dictionary instead of hardcoding strings directly in the markup.
+
 ---
 
 ## Pending Decisions

@@ -48,6 +48,24 @@
 - Files Changed: `drizzle.config.ts`
 - Prevention: Always use explicit `config({ path: ".env.local" })` in any non-Next.js tooling config.
 
+### ERR-004: Duplicate drizzle-orm import breaks Turbopack build
+- Date: 2026-05-05
+- Sprint: Sprint 3
+- Symptom: `Turbopack build failed with 3 errors: the name 'ilike' is defined multiple times` — also `or` and `arrayContains` flagged.
+- Root Cause: A second `import { ilike, or, arrayContains } from "drizzle-orm"` was accidentally appended mid-file in `lib/db/queries.ts`, duplicating symbols already imported at the top of the file.
+- Fix: Removed the duplicate import block. The original top-of-file import already included all three symbols.
+- Files Changed: `lib/db/queries.ts`
+- Prevention: Never add a new import statement mid-file. Always add to the existing import block at the top. Turbopack is stricter than Webpack about duplicate named exports.
+
+### ERR-005: Wrong data file imported for NAV constant
+- Date: 2026-05-05
+- Sprint: Sprint 4.5 (UI Audit)
+- Symptom: TypeScript error — `NAV` not exported from `@/data/product-page`.
+- Root Cause: `app/products/[slug]/page.tsx` imported `{ PRODUCT_PAGE, NAV }` from `@/data/product-page` but `NAV` lives in `@/data/site`.
+- Fix: Split the import: `PRODUCT_PAGE` from `@/data/product-page`, `NAV` from `@/data/site`.
+- Files Changed: `app/products/[slug]/page.tsx`
+- Prevention: The `data/site.ts` file owns all global site-wide constants including NAV. Page-specific constants live in their own data file. Check which file owns the symbol before importing.
+
 ---
 
 ## Common Patterns to Watch

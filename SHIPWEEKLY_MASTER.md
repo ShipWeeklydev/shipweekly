@@ -134,24 +134,50 @@ shipweekly/
 │       └── upload/route.ts                 # POST image to Cloudinary
 ├── components/
 │   ├── ui/                                 # shadcn primitives (auto-generated)
-│   ├── ship-card.tsx                       # Product card for leaderboard
-│   ├── leaderboard.tsx                     # Weekly ranked product list
-│   ├── upvote-btn.tsx                      # Toggle upvote button
-│   ├── roast-box.tsx                       # Roast comment section
-│   ├── comment-box.tsx                     # Threaded comment section
-│   ├── stack-badge.tsx                     # Tech stack tag pill
-│   ├── mrr-badge.tsx                       # Revenue badge pill
-│   ├── builder-card.tsx                    # Builder profile card
-│   ├── streak-counter.tsx                  # Fire streak display
-│   ├── analytics-chart.tsx                 # Dashboard line chart
-│   ├── collection-card.tsx                 # Collection preview card
-│   ├── discussion-card.tsx                 # Discussion thread preview card
-│   ├── screenshot-gallery.tsx              # Product screenshot carousel
-│   ├── badge-display.tsx                   # Product of the Week/Month badge
-│   ├── embed-widget.tsx                    # "Featured on ShipWeekly" embed code
-│   ├── newsletter-form.tsx                 # Email subscription form
+│   ├── auth/                              # Auth-related UI
+│   │   ├── auth-layout.tsx                # Split-screen layout for login/signup
+│   │   └── onboarding-form.tsx            # Username + bio onboarding form
+│   ├── layout/                            # Three-column shell components
+│   │   ├── app-sidebar.tsx                # Left sidebar navigation
+│   │   ├── right-sidebar.tsx              # Right sidebar widgets
+│   │   ├── top-builders.tsx               # Top builders widget
+│   │   ├── trending-stacks.tsx            # Trending stacks widget
+│   │   └── last-week-best.tsx             # Last week's top 3
+│   ├── leaderboard/                       # Homepage feed components
+│   │   ├── ship-card.tsx                  # Product card for leaderboard
+│   │   ├── leaderboard.tsx                # Weekly ranked product list
+│   │   ├── week-selector.tsx              # Week tab selector
+│   │   └── upvote-btn.tsx                 # Toggle upvote button
+│   ├── product/                           # Product detail components
+│   │   ├── roast-box.tsx                  # Roast comment section
+│   │   ├── comment-box.tsx                # Threaded comment section
+│   │   ├── stack-badge.tsx                # Tech stack tag pill
+│   │   ├── mrr-badge.tsx                  # Revenue badge pill
+│   │   ├── screenshot-gallery.tsx         # Product screenshot carousel
+│   │   ├── badge-display.tsx              # Product of the Week/Month badge
+│   │   └── embed-widget.tsx               # "Featured on ShipWeekly" embed
+│   ├── profile/                           # Builder profile components
+│   │   ├── builder-profile.tsx            # Public builder profile page
+│   │   ├── builder-card.tsx               # Builder profile card (compact)
+│   │   ├── streak-counter.tsx             # Fire streak display
+│   │   └── settings-form.tsx              # Profile settings form
+│   ├── dashboard/                         # Dashboard components
+│   │   └── analytics-chart.tsx            # Dashboard line chart
+│   ├── community/                         # Community components
+│   │   ├── collection-card.tsx            # Collection preview card
+│   │   └── discussion-card.tsx            # Discussion thread preview card
+│   ├── marketing/                         # Marketing components
+│   │   └── newsletter-form.tsx            # Email subscription form
 │   └── providers/
-│       └── clerk-provider.tsx           # Clerk auth wrapper
+│       └── clerk-provider.tsx             # Clerk auth wrapper
+├── data/                                  # Centralized copy and configuration
+│   ├── site.ts                            # Global site config and constants
+│   ├── hero.ts                            # Homepage hero copy
+│   ├── newsletter.ts                      # Newsletter widget copy
+│   ├── product-form.ts                    # Submission form copy
+│   ├── empty-states.ts                    # Empty state texts
+│   ├── product-page.ts                    # Product page section headers
+│   └── sidebar.ts                         # Sidebar placeholder data
 ├── lib/
 │   ├── db/
 │   │   ├── index.ts                        # Drizzle client (Neon pooled)
